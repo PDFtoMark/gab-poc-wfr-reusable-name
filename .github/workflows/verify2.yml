@@ -1,0 +1,9 @@
+name: Verify
+on:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "standalone verify ran"
