@@ -1,0 +1,17 @@
+name: Watcher Privileged
+on:
+  workflow_run:
+    workflows: [Verify]
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: payload
+        run: |
+          jq -c '{event:.workflow_run.event,name:.workflow_run.name,head_branch:.workflow_run.head_branch,head_repo:.workflow_run.head_repository.full_name,draft:.workflow_run.pull_requests}' "$GITHUB_EVENT_PATH"
